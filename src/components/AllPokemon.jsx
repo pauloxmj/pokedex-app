@@ -11,11 +11,11 @@ export default function AllPokemon(){
     // Ref to trigger fetching for more pokemon
     const loaderRef = useRef();
 
-    // Fetch intial pokemon
+    // Fetch initial pokemon
     useEffect(() => {
         const fetchInitialPokemon = async() => {
             const data = await getPokemon();
-            setPokemon(data.results);
+            setPokemon(data); // Store the full details of the initial 40 Pokémon
         }
         fetchInitialPokemon();
     }, [])
@@ -58,8 +58,9 @@ export default function AllPokemon(){
                     <li key={index} className={styles.pokemonItem}>
                         <PokemonCard
                             name={pokemon.name}
-                            url={pokemon.url}
-                            id={index + 1}
+                            id={pokemon.id}
+                            types={pokemon.types} // Pass types to PokemonCard
+                            sprite={pokemon.sprite} // Pass sprite to PokemonCard
                         />
                     </li>
                 ))}
@@ -75,5 +76,5 @@ export default function AllPokemon(){
             {/* Invisible div with ref for triggering the next fetch */}
             <div ref={loaderRef} className={styles.loaderTrigger}></div>
         </div>
-);
+    );
 }

@@ -1,5 +1,10 @@
+import pokedexLogo from './../assets/images/pokedex.png'
+import styles from './Header.module.css'
+
 export default function Header() {
     return (
-        <h1>Pokedex</h1>
+        <header className={styles.container}>
+            <img src={pokedexLogo} alt="Pokedex" />
+        </header>
     )
 }
