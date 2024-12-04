@@ -1,35 +1,39 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
-import PokemonCard from './PokemonCard'
-import { getPokemon, getMorePokemon } from './../services/pokemonApi.js'
-import styles from './AllPokemon.module.css'
+import { useState, useEffect, useRef, useCallback } from 'react';
+import PokemonCard from './PokemonCard';
+import { getPokemon, getMorePokemon } from './../services/pokemonApi.js';
+import styles from './AllPokemon.module.css';
 
-export default function AllPokemon(){
+export default function AllPokemon() {
     const [pokemon, setPokemon] = useState([]);
     const [offset, setOffset] = useState(40);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Ref to trigger fetching for more pokemon
     const loaderRef = useRef();
 
-    // Fetch initial pokemon
+    // Fetch initial pokemon on mount
     useEffect(() => {
-        const fetchInitialPokemon = async() => {
+        const fetchInitialPokemon = async () => {
             const data = await getPokemon();
-            setPokemon(data); // Store the full details of the initial 40 Pokémon
-        }
+            setPokemon(data);
+        };
         fetchInitialPokemon();
-    }, [])
+    }, []);
 
-    // Fetch more pokemon after the initial ones
+    // Fetch more pokemon when infinite scroll useEffect is triggered
     const fetchMorePokemon = useCallback(async () => {
-        if (isLoading) return; // Prevents duplicate requests
+        if (isLoading) return;
         setIsLoading(true);
+    
         const morePokemon = await getMorePokemon(offset);
+    
         setPokemon((prevPokemon) => [...prevPokemon, ...morePokemon]);
-        setOffset((prevOffset) => prevOffset + 40);
+    
+        setOffset((prevOffset) => prevOffset + 24); // Make sure the offset increments properly
+    
         setIsLoading(false);
-    }, [offset, isLoading])
+    }, [offset, isLoading]);
 
+    // useEffect for infinite scroll
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -59,8 +63,8 @@ export default function AllPokemon(){
                         <PokemonCard
                             name={pokemon.name}
                             id={pokemon.id}
-                            types={pokemon.types} // Pass types to PokemonCard
-                            sprite={pokemon.sprite} // Pass sprite to PokemonCard
+                            types={pokemon.types}
+                            sprite={pokemon.sprite}
                         />
                     </li>
                 ))}
