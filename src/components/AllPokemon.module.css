@@ -1,0 +1,42 @@
+ul {
+    display: flex; 
+    flex-wrap: wrap; 
+    list-style-type: none; 
+    padding-inline-start: 0px; 
+    margin-block: 0px; 
+    align-items: center; 
+    justify-content: center; 
+    opacity: 1;
+}
+
+.pokemonItem {
+    list-style: none;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 4px solid #ccc;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loaderTrigger {
+    height: 1px;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
