@@ -14,8 +14,8 @@ export default function PokemonDetails({ pokemon, onClose, onEvolutionClick }) {
             <div className={styles.modalContent}>
                 <div className={styles.generalInfo}>
                     <h1> #{pokemon.id}</h1>
-                    <h2>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
-                    <p>{pokemon.genus}</p>
+                    <h1>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h1>
+                    <h2>{pokemon.genus}</h2>
                     <img className={styles.pokeImage} src={pokemon.sprite} alt={pokemon.name} />
                     <div className={styles.types}>
                         {pokemon.types.map((type, index) => (
@@ -31,7 +31,8 @@ export default function PokemonDetails({ pokemon, onClose, onEvolutionClick }) {
                 </div>
                 <div className={styles.secondaryInfo}>
                     <div className={styles.aboutContainer}>
-                        <p><strong>About:</strong> {pokemon.flavorText}</p>
+                        <h3>About</h3>
+                        <p>{pokemon.flavorText}</p>
                         <h3>Base Stats</h3>
                         {pokemon.baseStats.map((stat, index) => (
                             <li key={index}>

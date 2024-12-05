@@ -33,8 +33,12 @@
     margin-right: 20px;
 }
 
+h1 {
+    font-size: 2.5rem;
+}
+
 .pokeImage {
-    width: 150px;
+    width: 230px;
 }
 
 .types {

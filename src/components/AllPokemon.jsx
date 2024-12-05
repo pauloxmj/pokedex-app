@@ -6,8 +6,8 @@ import styles from './AllPokemon.module.css';
 
 export default function AllPokemon() {
     const [pokemon, setPokemon] = useState([]); //state to store pokemon data
-    const [offset, setOffset] = useState(24); //state to keep track of the offset
-    const [isLoading, setIsLoading] = useState(false); //state to detect if new pokemon are being loaded to add to the infinite scroll useEffect
+    const [offset, setOffset] = useState(24); //state to keep track of the fetch request offset
+    const [isLoading, setIsLoading] = useState(false); //state to detect if new pokemon are being loaded to enaable the infinite scroll useEffect
     const [selectedPokemon, setSelectedPokemon] = useState(null); //state to keep track of which pokemon is selected for more info
 
     // useRef to be used with the useEffect function to enable infinite scroll
