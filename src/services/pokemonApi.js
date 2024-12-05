@@ -1,7 +1,7 @@
-const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=24";
+const API_URL = "https://pokeapi.co/api/v2/pokemon";
 
 export const getPokemon = async() => {
-    const res = await fetch(API_URL);
+    const res = await fetch(`${API_URL}?limit=24`);
     const data = await res.json();
 
     // Fetch details for each Pokémon using the `url` key
@@ -22,7 +22,7 @@ export const getPokemon = async() => {
 }
 
 export const getMorePokemon = async(offset) => {
-    const res = await fetch(`${API_URL}?offset=${offset}&limit=24`);
+    const res = await fetch(`${API_URL}?offset=${offset}&limit=24`)
     const data = await res.json();
 
     // Fetch details for each Pokémon using the `url` key

@@ -5,12 +5,12 @@ import styles from './AllPokemon.module.css';
 
 export default function AllPokemon() {
     const [pokemon, setPokemon] = useState([]);
-    const [offset, setOffset] = useState(40);
+    const [offset, setOffset] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
 
     const loaderRef = useRef();
 
-    // Fetch initial pokemon on mount
+    // Fetch initial pokemon
     useEffect(() => {
         const fetchInitialPokemon = async () => {
             const data = await getPokemon();
@@ -28,8 +28,8 @@ export default function AllPokemon() {
     
         setPokemon((prevPokemon) => [...prevPokemon, ...morePokemon]);
     
-        setOffset((prevOffset) => prevOffset + 24); // Make sure the offset increments properly
-    
+        setOffset((prevOffset) => prevOffset + 24);
+        console.log(offset);
         setIsLoading(false);
     }, [offset, isLoading]);
 
