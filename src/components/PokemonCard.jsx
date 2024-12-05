@@ -20,7 +20,7 @@ export default function PokemonCard({ pokemon, onClick }) {
                 </div>
             </div>
             <img className={styles.sprite} src={pokemon.sprite} alt={pokemon.name} />
-            <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3>
+            <h3>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h3>
             <div className={styles.types}>
                 {pokemon.types.map((type, index) => (
                     <img

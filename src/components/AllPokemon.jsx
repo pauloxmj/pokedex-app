@@ -40,6 +40,15 @@ export default function AllPokemon() {
         setSelectedPokemon(pokemonDetails);
     };
 
+    const handleEvolutionClick = async (evolutionId) => {
+        const evolutionDetails = await getPokemonDetails(evolutionId);
+        setSelectedPokemon(evolutionDetails); // Update the modal to show the evolution's details
+    };
+
+    const handleClose = () => {
+    setSelectedPokemon(null); // Close the modal by clearing the selected Pokémon
+    };
+
     // useEffect for infinite scroll, when the scroll reaches the the loaderRef added to the div,
     // it triggers the fetchMorePokemon function to load more pokemon
     useEffect(() => {
@@ -90,7 +99,8 @@ export default function AllPokemon() {
             {selectedPokemon && (
                 <PokemonDetails
                     pokemon={selectedPokemon}
-                    onClose={() => setSelectedPokemon(null)}
+                    onEvolutionClick={handleEvolutionClick}
+                    onClose={handleClose}
                 />
             )}
         </div>

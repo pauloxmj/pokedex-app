@@ -1,33 +1,40 @@
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+.container {
+    font-family: "VT323", monospace;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
 
 .modalContent {
-    background-color: white;
-    padding: 20px;
+    display: flex;
+    background-color: #fff;
+    padding: 40px;
     border-radius: 10px;
+    width: 80%;
+    max-width: 800px;
+    min-width: 300px;
+    box-sizing: border-box;
     position: relative;
-    max-width: 600px;
-    width: 90%;
+    z-index: 1001;
 }
 
-.closeBtn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
+.generalInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.pokeImage {
+    width: 150px;
 }
 
 .types {
@@ -35,12 +42,45 @@
     gap: 10px;
 }
 
-.evolutions {
+.secondaryInfo {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 30px;
+}
+
+.aboutContainer > p {
+    font-size: 1.5rem;
+}
+
+.aboutContainer li {
+    font-size: 1.5rem;
+    list-style-type: none;
+}
+
+.evolutionsContainer {
+    display: flex;
+    flex-direction: column;
     gap: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.evolutionsContainer > div {
+    display: flex;
 }
 
 .evolution {
     cursor: pointer;
     text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.evolution:hover {
+    transform: scale(1.1);
+}
+
+.evolution img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
 }

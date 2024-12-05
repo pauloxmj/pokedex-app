@@ -63,7 +63,7 @@ export const getPokemonDetails = async (pokemonId) => {
             base_stat: stat.base_stat,
         })),
         baseExperience: data.base_experience,
-        genus: speciesData.genus,
+        genus: speciesData.genera["7"].genus,
         flavorText: speciesData.flavor_text_entries.find(entry => entry.language.name === "en")?.flavor_text,
         evolutions: await getEvolutionChain(speciesData.evolution_chain.url),
         sprite: data.sprites.other["official-artwork"].front_default,
