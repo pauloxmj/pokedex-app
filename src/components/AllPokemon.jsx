@@ -1,13 +1,16 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { getPokemon, getMorePokemon, getPokemonDetails } from './../services/pokemonApi.js';
 import PokemonCard from './PokemonCard';
-import { getPokemon, getMorePokemon } from './../services/pokemonApi.js';
+import PokemonDetails from './PokemonDetails.jsx'
 import styles from './AllPokemon.module.css';
 
 export default function AllPokemon() {
-    const [pokemon, setPokemon] = useState([]);
-    const [offset, setOffset] = useState(0);
-    const [isLoading, setIsLoading] = useState(false);
+    const [pokemon, setPokemon] = useState([]); //state to store pokemon data
+    const [offset, setOffset] = useState(24); //state to keep track of the offset
+    const [isLoading, setIsLoading] = useState(false); //state to detect if new pokemon are being loaded to add to the infinite scroll useEffect
+    const [selectedPokemon, setSelectedPokemon] = useState(null); //state to keep track of which pokemon is selected for more info
 
+    // useRef to be used with the useEffect function to enable infinite scroll
     const loaderRef = useRef();
 
     // Fetch initial pokemon
@@ -19,7 +22,7 @@ export default function AllPokemon() {
         fetchInitialPokemon();
     }, []);
 
-    // Fetch more pokemon when infinite scroll useEffect is triggered
+    // function to trigger the fetch for more pokemon and set it to the pokemon useState to be rendered
     const fetchMorePokemon = useCallback(async () => {
         if (isLoading) return;
         setIsLoading(true);
@@ -29,11 +32,16 @@ export default function AllPokemon() {
         setPokemon((prevPokemon) => [...prevPokemon, ...morePokemon]);
     
         setOffset((prevOffset) => prevOffset + 24);
-        console.log(offset);
         setIsLoading(false);
     }, [offset, isLoading]);
 
-    // useEffect for infinite scroll
+    const handlePokemonClick = async (id) => {
+        const pokemonDetails = await getPokemonDetails(id);
+        setSelectedPokemon(pokemonDetails);
+    };
+
+    // useEffect for infinite scroll, when the scroll reaches the the loaderRef added to the div,
+    // it triggers the fetchMorePokemon function to load more pokemon
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -61,10 +69,8 @@ export default function AllPokemon() {
                 {pokemon.map((pokemon, index) => (
                     <li key={index} className={styles.pokemonItem}>
                         <PokemonCard
-                            name={pokemon.name}
-                            id={pokemon.id}
-                            types={pokemon.types}
-                            sprite={pokemon.sprite}
+                            pokemon= {pokemon}
+                            onClick= {handlePokemonClick} 
                         />
                     </li>
                 ))}
@@ -79,6 +85,14 @@ export default function AllPokemon() {
 
             {/* Invisible div with ref for triggering the next fetch */}
             <div ref={loaderRef} className={styles.loaderTrigger}></div>
+
+            {/* Modal with PokemonDetails */}
+            {selectedPokemon && (
+                <PokemonDetails
+                    pokemon={selectedPokemon}
+                    onClose={() => setSelectedPokemon(null)}
+                />
+            )}
         </div>
     );
 }

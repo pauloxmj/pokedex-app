@@ -1,11 +1,11 @@
 import styles from './PokemonCard.module.css'
 
-export default function PokemonCard({ name, id, types, sprite }) {
+export default function PokemonCard({ pokemon, onClick }) {
     return (
         <div className={styles.cardContainer}>
             <div className={styles.cardHeader}>
-                <div className={styles.pokeNumber}>#{id}</div>
-                <div>
+                <div className={styles.pokeNumber}>#{pokemon.id}</div>
+                <div onClick={() => onClick(pokemon.id)} style={{ cursor: 'pointer' }}>
                     <svg
                         stroke="currentColor"
                         fill="currentColor"
@@ -19,10 +19,10 @@ export default function PokemonCard({ name, id, types, sprite }) {
                     </svg>
                 </div>
             </div>
-            <img className={styles.sprite} src={sprite} alt={name} />
+            <img className={styles.sprite} src={pokemon.sprite} alt={pokemon.name} />
             <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3>
             <div className={styles.types}>
-                {types.map((type, index) => (
+                {pokemon.types.map((type, index) => (
                     <img
                         key={index}
                         src={`https://raw.githubusercontent.com/msikma/pokeresources/master/resources/type-icons/gen8/${type}.svg`}
