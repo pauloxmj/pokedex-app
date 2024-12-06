@@ -3,8 +3,8 @@ import styles from './PokemonDetails.module.css';
 export default function PokemonDetails({ pokemon, onClose, onEvolutionClick }) {
 
     // Close modal when the area outside it is clicked
-    const handleBackgroundClick = (e) => {
-        if (e.target === e.currentTarget) {
+    const handleBackgroundClick = (event) => {
+        if (event.target === event.currentTarget) {
             onClose();
         }
     }
